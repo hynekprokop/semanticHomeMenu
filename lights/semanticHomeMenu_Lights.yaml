@@ -32,7 +32,7 @@ props:
       name: colorScheme
       required: true
       type: TEXT
-timestamp: Dec 22, 2023, 9:49:29 AM
+timestamp: Dec 2, 2024, 3:11:19 PM
 component: f7-card
 config:
   style:
@@ -40,14 +40,13 @@ config:
     margin-left: 5px
     margin-right: 5px
     min-width: 360px
-  stylesheet: >
+  stylesheet: |
     
     .accordion-nr.open {
 
       max-height: 400px;
       transition: max-height 0.25s ease-in; 
     }
-
     .accordion-nr.closed {
 
       max-height: 0px;
@@ -74,6 +73,8 @@ slots:
               default:
                 - component: oh-icon
                   config:
+                    color: '=(items[props.groupItem + "_switch"].state == "ON") ? props.colorScheme
+                      : "black"'
                     height: 100%
                     icon: iconify:clarity:lightbulb-line
                     style:
@@ -122,23 +123,6 @@ slots:
                 - margin-right
               style:
                 height: 100%
-                padding-right: '=props.equipmentType != "Lightbulb" ? "0" : "30px"'
-                width: auto
-            slots:
-              default:
-                - component: oh-toggle
-                  config:
-                    item: '=props.equipmentType != "Lightbulb" ? props.groupItem + "_brightness" : props.groupItem + "_switch"'
-                    style:
-                      --f7-toggle-active-color: =props.colorScheme
-          - component: f7-col
-            config:
-              class:
-                - display-flex
-                - justify-content-center
-                - margin-right
-              style:
-                height: 100%
                 width: auto
             slots:
               default:
@@ -146,8 +130,9 @@ slots:
                   config:
                     action: variable
                     actionVariable: openAccordion
-                    actionVariableValue: '=(vars.openAccordion== "null") ? true : !(vars.openAccordion)'
-                    visible: "=props.equipmentType != 'Lightbulb' ? 'true' : 'false'"
+                    actionVariableValue: '=(vars.openAccordion== "null") ? true :
+                      !(vars.openAccordion)'
+                    visible: true
                   slots:
                     default:
                       - component: oh-icon
@@ -156,6 +141,24 @@ slots:
                           style:
                             color: var(--f7-toggle-inactive-color)
                           width: 30px
+          - component: f7-col
+            config:
+              class:
+                - display-flex
+                - justify-content-center
+                - margin-right
+              style:
+                height: 100%
+                padding-right: 0
+                width: auto
+            slots:
+              default:
+                - component: oh-toggle
+                  config:
+                    item: '=props.equipmentType != "Lightbulb" ? props.groupItem + "_brightness" :
+                      props.groupItem + "_switch"'
+                    style:
+                      --f7-toggle-active-color: =props.colorScheme
     - component: f7-block
       config:
         class:
@@ -176,6 +179,7 @@ slots:
                 - align-items-center
                 - display-flex
               style:
+                display: "=props.equipmentType === 'ColorLight' ? '' : 'none !important'"
                 height: auto
             slots:
               default:
@@ -191,7 +195,8 @@ slots:
                     visible: "=props.equipmentType === 'ColorLight' ? 'true' : 'false'"
                 - component: oh-slider
                   config:
-                    item: "=props.equipmentType != 'ColorLight' ? '' : props.groupItem + '_colorTemperature'"
+                    item: "=props.equipmentType != 'ColorLight' ? '' : props.groupItem +
+                      '_colorTemperature'"
                     max: 100
                     min: 0
                     style:
@@ -209,6 +214,7 @@ slots:
                 - align-items-center
                 - display-flex
               style:
+                display: "=props.equipmentType != 'Lightbulb' ? '' : 'none !important'"
                 height: auto
             slots:
               default:
@@ -224,7 +230,8 @@ slots:
                     visible: "=props.equipmentType != 'Lightbulb' ? 'true' : 'false'"
                 - component: oh-slider
                   config:
-                    item: "=props.equipmentType != 'Lightbulb' ? props.groupItem + '_brightness' : ''"
+                    item: "=props.equipmentType != 'Lightbulb' ? props.groupItem + '_brightness' :
+                      ''"
                     max: 100
                     min: 0
                     style:
@@ -242,6 +249,7 @@ slots:
                 - align-items-center
                 - display-flex
               style:
+                display: "=props.equipmentType === 'ColorLight' ? '' : 'none !important'"
                 height: auto
             slots:
               default:
@@ -281,9 +289,49 @@ slots:
                       - component: f7-row
                         config:
                           class:
+                            - no-padding
+                            - no-margin
                             - justify-content-left
                             - align-items-center
                             - display-flex
+                          style:
+                            height: auto
                         slots:
                           default:
-                            - component: oh-link
+                            - component: f7-col
+                              config:
+                                class:
+                                  - display-flex
+                                  - flex-direction-column
+                                comment: ////////////////////// LABEL //////////////////////
+                                style:
+                                  flex-grow: 1
+                                  height: 100%
+                              slots:
+                                default:
+                                  - component: f7-row
+                                    config:
+                                      style:
+                                        overflow: hidden
+                                        width: 100%
+                                    slots:
+                                      default:
+                                        - component: Label
+                                          config:
+                                            text: =items[props.groupItem + '_wh'].displayState
+                            - component: f7-col
+                              config:
+                                class:
+                                  - display-flex
+                                  - justify-content-center
+                                  - margin-right
+                                comment: ////////////////////// VALUE //////////////////////
+                                style:
+                                  height: 100%
+                                  padding-right: 0
+                                  width: auto
+                              slots:
+                                default:
+                                  - component: Label
+                                    config:
+                                      text: =items[props.groupItem + '_pwr'].displayState

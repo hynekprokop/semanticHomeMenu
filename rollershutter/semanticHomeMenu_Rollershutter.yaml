@@ -24,7 +24,7 @@ props:
       name: colorScheme
       required: true
       type: TEXT
-timestamp: Aug 27, 2023, 11:42:51 PM
+timestamp: Nov 23, 2024, 4:18:04 PM
 component: f7-card
 config:
   style:
@@ -32,13 +32,12 @@ config:
     margin-left: 5px
     margin-right: 5px
     min-width: 360px
-  stylesheet: >
+  stylesheet: |
     .accordion-nr.open {
 
       max-height: 400px;
       transition: max-height 0.25s ease-in; 
     }
-
     .accordion-nr.closed {
 
       max-height: 0px;
@@ -119,7 +118,10 @@ slots:
                         config:
                           style:
                             justify-content: flex-end
-                          text: "=items[props.groupItem + '_control'].displayState ? (items[props.groupItem + '_control'].displayState) + ' closed' : items[props.groupItem + '_control'].state + '% closed'"
+                          text: "=items[props.groupItem + '_control'].displayState ?
+                            (items[props.groupItem + '_control'].displayState) +
+                            ' closed' : items[props.groupItem +
+                            '_control'].state + '% closed'"
           - component: f7-col
             config:
               class:
@@ -193,7 +195,8 @@ slots:
                   config:
                     action: variable
                     actionVariable: openAccordion
-                    actionVariableValue: '=(vars.openAccordion== "null") ? true : !(vars.openAccordion)'
+                    actionVariableValue: '=(vars.openAccordion== "null") ? true :
+                      !(vars.openAccordion)'
                   slots:
                     default:
                       - component: oh-icon
@@ -214,136 +217,6 @@ slots:
           width: 100%
       slots:
         default:
-          - component: f7-block
-            config:
-              class:
-                - no-margin
-                - no-padding-left
-                - no-padding-right
-                - padding-top-half
-              style:
-                height: 120px
-                width: 100%
-            slots:
-              default:
-                - component: oh-chart
-                  config:
-                    chartType: day
-                    height: 80%
-                    periodVisible: false
-                  slots:
-                    grid:
-                      - component: oh-chart-grid
-                        config:
-                          borderWidth: 0
-                          height: 100%
-                          includeLabels: true
-                          top: 0px
-                    series:
-                      - component: oh-aggregate-series
-                        config:
-                          aggregationFunction: average
-                          backgroundStyle:
-                            borderRadius:
-                              - 50
-                              - 50
-                              - 50
-                              - 50
-                            color:
-                              colorStops:
-                                - color: yellow
-                                  offset: 0
-                                - color: white
-                                  offset: 1
-                              type: linear
-                              x: 0
-                              x2: 0
-                              y: 0
-                              y2: 1
-                          dimension1: hour
-                          gridIndex: 0
-                          item: =props.groupItem + '_control'
-                          itemStyle:
-                            borderRadius:
-                              - 50
-                              - 50
-                              - 50
-                              - 50
-                            color: lightgray
-                          showBackground: true
-                          type: bar
-                          xAxisIndex: 0
-                          yAxisIndex: 0
-                    tooltip:
-                      - component: oh-chart-tooltip
-                        config:
-                          orient: vertical
-                          show: false
-                          trigger: axis
-                    xAxis:
-                      - component: oh-category-axis
-                        config:
-                          axisLabel:
-                            color: red
-                            show: false
-                          axisLine:
-                            show: true
-                          axisPointer:
-                            show: false
-                          axisTick:
-                            interval: 0
-                            lineStyle:
-                              opacity: 0.5
-                            show: true
-                          categoryType: day
-                          gridIndex: 0
-                          nameTextStyle:
-                            color: transparent
-                          show: true
-                    yAxis:
-                      - component: oh-value-axis
-                        config:
-                          gridIndex: 0
-                          inverse: true
-                          max: 100
-                          min: 0
-                          show: false
-                - component: f7-row
-                  config:
-                    style:
-                      height: 20%
-                      margin-left: 10%
-                      margin-right: 10%
-                      margin-top: 1px
-                  slots:
-                    default:
-                      - component: f7-col
-                        slots:
-                          default:
-                            - component: Label
-                              config:
-                                text: 0:00
-                      - component: f7-col
-                        config:
-                          class:
-                            - display-flex
-                            - justify-content-center
-                          style: {}
-                        slots:
-                          default:
-                            - component: Label
-                              config:
-                                text: 12:00
-                      - component: f7-col
-                        config:
-                          class:
-                            - display-flex
-                            - justify-content-right
-                        slots:
-                          default:
-                            - component: Label
-                              config:
-                                text: 24:00
           - component: f7-card-footer
             config:
               style:
@@ -372,7 +245,7 @@ slots:
                               config:
                                 style:
                                   border-style: solid
-                                  border-width: 0 2px 0 0
+                                  border-width: 0 0 0 0
                                   flex-grow: 1
                                   width: 80%
                               slots:
@@ -422,7 +295,10 @@ slots:
                                                   class:
                                                     - margin-half
                                                   style:
-                                                    background-color: '=(Number(items[props.groupItem + "_control"].state.split(" ")[0])== loop.preset) ? props.colorScheme : "var(--f7-toggle-inactive-color)"'
+                                                    background-color: '=(Number(items[props.groupItem + "_control"].state.split("
+                                                      ")[0])== loop.preset) ?
+                                                      props.colorScheme :
+                                                      "var(--f7-toggle-inactive-color)"'
                                                     border-radius: 100%
                                                     color: white
                                                     font-weight: bold
@@ -433,159 +309,5 @@ slots:
                                                     - component: Label
                                                       config:
                                                         text: =loop.preset
-                            - component: f7-col
-                              config:
-                                style:
-                                  height: 100%
-                                  width: 20%
-                              slots:
-                                default:
-                                  - component: f7-row
-                                    config:
-                                      class:
-                                        - margin-bottom-half
-                                        - margin-horizontal-half
-                                        - justify-content-left
-                                        - display-flex
-                                      style:
-                                        height: auto
-                                    slots:
-                                      default:
-                                        - component: Label
-                                          config:
-                                            text: Settings
-                                  - component: f7-row
-                                    config:
-                                      class:
-                                        - no-padding
-                                        - margin-horizontal
-                                        - align-items-center
-                                        - display-flex
-                                    slots:
-                                      default:
-                                        - component: oh-link
-                                          config:
-                                            action: popup
-                                            class:
-                                              - margin-half
-                                            popupOpen: ="."+props.groupItem
-                                            style:
-                                              background-color: var(--f7-toggle-inactive-color)
-                                              border-radius: 100%
-                                              color: white
-                                              font-weight: bold
-                                              height: 30px
-                                              min-width: 30px !important
-                                          slots:
-                                            default:
-                                              - component: oh-icon
-                                                config:
-                                                  height: 80%
-                                                  icon: iconify:carbon:event-schedule
-    - component: f7-popup
-      config:
-        class: =props.groupItem
-        closeByBackdropClick: true
-        closeByOutsideClick: true
-        closeOnEscape: true
-        swipeToClose: true
-      slots:
-        default:
-          - component: f7-row
-            config:
-              class:
-                - margin
-                - justify-content-center
-                - align-items-center
-                - display-flex
-              style:
-                padding-top: 50px
-                width: 100%
-            slots:
-              default:
-                - component: f7-col
-                  config:
-                    class:
-                      - justify-content-center
-                      - display-flex
-                  slots:
-                    default:
-                      - component: oh-toggle
-                        config:
-                          color: =props.colorScheme
-                          item: =props.groupItem + '_scheduleControl'
-                - component: f7-col
-                  slots:
-                    default:
-                      - component: Label
-                        config:
-                          text: Zeitsteuerung
-          - component: oh-repeater
-            config:
-              for: i
-              fragment: true
-              in:
-                - item: _openWeek
-                  label: Öffnen Wochentage
-                - item: _closeWeek
-                  label: Schließen Wochentage
-                - item: _openWeekend
-                  label: Öffnen Wochenende
-                - item: _closeWeekend
-                  label: Schließen Wochenende
-              sourceType: array
-            slots:
-              default:
-                - component: f7-row
-                  config:
-                    class:
-                      - margin
-                      - justify-content-center
-                      - align-items-center
-                      - display-flex
-                    style:
-                      width: 100%
-                  slots:
-                    default:
-                      - component: f7-col
-                        config:
-                          class:
-                            - justify-content-center
-                            - display-flex
-                        slots:
-                          default:
-                            - component: oh-link
-                              config:
-                                action: popover
-                                popoverOpen: ="."+ props.groupItem + loop.i.item
-                                style:
-                                  background: transparent
-                                  color: black
-                                  height: 35px
-                              slots:
-                                default:
-                                  - component: f7-chip
-                                    config:
-                                      style:
-                                        background-color: "#D3D3D3"
-                                        color: black
-                                      text: =items[props.groupItem + loop.i.item].displayState
-                                  - component: f7-popover
-                                    config:
-                                      backdrop: false
-                                      class: =props.groupItem + loop.i.item
-                                      closeByBackdropClick: true
-                                      closeByOutsideClick: true
-                                      closeOnEscape: true
-                                    slots:
-                                      default:
-                                        - component: widget:timepicker
-                                          config:
-                                            item: =props.groupItem + loop.i.item
-                                            timeFormat: 24h
-                      - component: f7-col
-                        slots:
-                          default:
-                            - component: Label
-                              config:
-                                text: =loop.i.label
+                            
+    
